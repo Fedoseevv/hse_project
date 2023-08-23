@@ -7,4 +7,6 @@ router.get('/all', monitoringController.allMonitoring);
 router.get('/greater/:id', monitoringController.monitoringDataById);
 router.get('/maxId', monitoringController.getMaxId);
 router.get('/last3s', monitoringController.getDataForLast3S);
+router.post('/period', monitoringController.getDataByPeriod);
+router.get('/lastPos', monitoringController.getLastPosition);
 module.exports = router;

@@ -32,7 +32,7 @@ export const StaticGraph = ({ data, fieldName, header, label }) => {
     const history = useHistory();
 
     const [ info, setInfo ] = useState({
-        labels: data.map(item => new Date(Date.parse(item.current_ts)).toLocaleTimeString()),
+        labels: data.map(item => new Date(Date.parse(item.current_ts)).toLocaleDateString() + " - " + new Date(Date.parse(item.current_ts)).toLocaleTimeString()),
         datasets: [
             {
                 label: label,
@@ -76,7 +76,7 @@ export const StaticGraph = ({ data, fieldName, header, label }) => {
             labels: data.map(item => new Date(Date.parse(item.current_ts)).toLocaleDateString() + " - " + new Date(Date.parse(item.current_ts)).toLocaleTimeString()),
             datasets: [
                 {
-                    label: "Пульс",
+                    label: label,
                     data: data.map(item => item[fieldName]),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

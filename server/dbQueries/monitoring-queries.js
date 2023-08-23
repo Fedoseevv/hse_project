@@ -71,10 +71,46 @@ const getLast3S = () => {
     })
 }
 
+const dataByPeriod = (start, end) => {
+    return new Promise((resolve, reject) => {
+        pool.query("select id, session_id, device_id, pulse, longitude,\n" +
+            "latitude, aox, aoy, aoz, \n" +
+            "sqrt(aox * aox + aoy * aoy + aoz * aoz) as a, current_ts\n" +
+            "from public.monitoring\n" +
+            "where current_ts >= $1\n" +
+            "and current_ts <= $2\n" +
+            "order by id", [start, end],
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result.rows);
+                }
+            })
+    })
+}
+
+const lastPosition = () => {
+    return new Promise((resolve, reject) => {
+        pool.query("select * from public.monitoring\n" +
+            "order by id desc\n" +
+            "limit 1", [],
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result.rows[0]);
+                }
+            })
+    })
+}
+
 module.exports = {
     addRecord,
     getAll,
     getGreaterThenId,
     getMaxId,
-    getLast3S
+    getLast3S,
+    dataByPeriod,
+    lastPosition
 }

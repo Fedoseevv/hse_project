@@ -1,9 +1,10 @@
-.monitoring {
-    background-color: #ffffff;
+.online-monitoring {
+
 }
-.header {
-    margin: 20px auto;
-    text-align: center;
-    font-weight: 300;
-    font-size: 45px;
+.online-monitoring-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 500px);
+    grid-row-gap: 50px;
+    margin-bottom: 100px;
 }

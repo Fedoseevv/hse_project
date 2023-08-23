@@ -74,6 +74,28 @@ class MonitoringController {
             return res.status(400).json({message: e.message});
         }
     }
+    async getDataByPeriod(req, res, next) {
+        try {
+            const {startDate, endDate} = req.body;
+            console.log(`start date: ${startDate}, end date: ${endDate}`)
+            await monitoringQueries.dataByPeriod(startDate, endDate)
+                .then(response => {
+                    return res.status(200).send(response);
+                })
+        } catch (e) {
+            return res.status(400).json({message: e.message});
+        }
+    }
+    async getLastPosition(req, res, next) {
+        try {
+            await monitoringQueries.lastPosition()
+                .then(response => {
+                    return res.status(200).send(response);
+                })
+        } catch (e) {
+            return res.status(400).json({message: e.message});
+        }
+    }
 }
 
 

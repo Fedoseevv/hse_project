@@ -1,0 +1,12 @@
+.online-monitoring-map {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0 50px;
+}
+.map-item-header {
+    font-size: 30px;
+    font-weight: 300;
+    text-align: center;
+}

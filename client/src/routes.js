@@ -1,27 +1,18 @@
 import {Switch, Route, Redirect} from "react-router-dom";
-import {AddBook} from './pages/AddBook/AddBook';
 import {AuthPage} from "./pages/AuthPage/AuthPage";
-import {AddDocument} from "./pages/AddDoc/AddDocument";
-import {AddArticle} from "./pages/AddArticle/AddArticle";
-import {AllSourcesPage} from "./modules/StaffManage/AllSourcesPage/AllSourcesPage";
-import {CollectionPage} from "./modules/Collection/CollectionPage/CollectionPage";
-import {AddCollection} from "./modules/Collection/AddCollection/AddCollection";
-import {TargetCollection} from "./modules/Collection/TargetCollection/TargetCollection";
-import {SearchPage} from "./modules/Search/SearchPage";
-import {AddAuthor} from "./modules/Author/AddAuthor/AddAuthor";
-import {AuthorPage} from "./modules/Author/AuthorPage";
-import { MonitoringPage } from "./pages/MonitoringPage/MonitoringPage";
-import { TestPage } from "./pages/TestPage/TestPage";
+import { StatisticPage } from "./pages/StatisticPage/StatisticPage";
+import { OnlineGraph } from "./pages/OnlineGraph/OnlineGraph";
+import { MonitoringPage } from './pages/MonitoringPage/MonitoringPage';
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
         return (
             <Switch>
                 <Route path="/" exact>
-                    <TestPage paddingRight={20} />
-                </Route>
-                <Route path="/monitoring">
                     <MonitoringPage />
+                </Route>
+                <Route path="/statistics">
+                    <StatisticPage />
                 </Route>
                 {/* <Route path="/addEmp" exact>
                     <AddBook/>
