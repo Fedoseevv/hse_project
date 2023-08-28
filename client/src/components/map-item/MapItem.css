@@ -1,12 +1,23 @@
-.online-monitoring-map {
-    width: 100%;
+.map-item {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 25px 0 50px;
+    padding: 20px;
 }
-.map-item-header {
-    font-size: 30px;
-    font-weight: 300;
-    text-align: center;
+  
+.slider-container {
+  flex: 1;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+  
+.map {
+  flex: 2;
+  height: 750px;
+  width: 750px;
+}
+  
+.slider-label {
+  text-align: center;
 }

@@ -1,6 +1,6 @@
 import {OnlineGraph} from "../OnlineGraph/OnlineGraph";
-import {MapItem} from "../../components/map-item/MapItem";
 import './MonitoringPage.css';
+import MapItem from '../../components/map-item/MapItem';
 
 export const MonitoringPage = () => {
 
