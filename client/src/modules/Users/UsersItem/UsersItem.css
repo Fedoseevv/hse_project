@@ -1,0 +1,16 @@
+.player {
+    padding: 15px;
+    background-color: #f1efef;
+    width: 400px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 40px #6e7273;
+    margin: 20px;
+}
+.player-item {
+    font-size: 22px;
+    font-weight: 600;
+}
+.player-modal {
+    padding: 25px;
+    text-align: center;
+}

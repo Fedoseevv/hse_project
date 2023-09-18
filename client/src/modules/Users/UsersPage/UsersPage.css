@@ -1,0 +1,43 @@
+.users {
+    padding: 25px 50px;
+}
+.users-header {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.users-content {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(4, 325px);
+    grid-row-gap: 50px;
+    margin-bottom: 100px;
+}
+.player-btns {
+    align-items: center;
+    text-align: center;
+    margin-top: 15px;
+}
+.player-btn {
+    width: 45%;
+    cursor: pointer;
+    display: inline-block;
+    background: #d7d4d4;
+    border: 2px solid #cdd6e7;
+    font-family: inherit;
+    border-radius: 5px;
+    color: rgb(7, 46, 101);
+    font-size: 22px!important;
+    transition: all .5s ease;
+    box-shadow: 3px 3px 15px rgb(115, 133, 154);
+    margin-right: 10px!important;
+}
+
+.player-btn a {
+    color: rgb(7, 46, 101);
+}
+.player-btn:hover {
+    border: 2px solid lightblue;
+    background-color: #c2c6cb;
+    color: #fff;
+}

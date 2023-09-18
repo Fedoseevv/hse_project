@@ -11,6 +11,7 @@ export const MapItem = ({ label }) => {
     const { loading, request } = useHttp();
     const [ position, setPosition ] = useState([]);
     const [ start, setStart ] = useState([55.83, 37.56995])
+    const [ allPoint, setAllPoints ] = useState([]);
 
     const getData = useCallback(async () => {
         const fetched = await request('/api/monitoring/lastPos');

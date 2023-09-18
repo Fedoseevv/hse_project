@@ -3,6 +3,7 @@ import {AuthPage} from "./pages/AuthPage/AuthPage";
 import { StatisticPage } from "./pages/StatisticPage/StatisticPage";
 import { OnlineGraph } from "./pages/OnlineGraph/OnlineGraph";
 import { MonitoringPage } from './pages/MonitoringPage/MonitoringPage';
+import { UsersPage } from "./modules/Users/UsersPage/UsersPage";
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
@@ -14,44 +15,9 @@ export const useRoutes = isAuthenticated => {
                 <Route path="/statistics">
                     <StatisticPage />
                 </Route>
-                {/* <Route path="/addEmp" exact>
-                    <AddBook/>
+                <Route path="/users">
+                    <UsersPage />
                 </Route>
-
-                <Route path={"/collections"}>
-                    <CollectionPage />
-                </Route>
-                <Route path={"/collection/:id"}>
-                    <TargetCollection />
-                </Route>
-                <Route path={"/addCollection"}>
-                    <AddCollection />
-                </Route>
-                <Route path={"/search"}>
-                    <SearchPage />
-                </Route>
-                <Route path={'/authors'}>
-                    <AuthorPage />
-                </Route>
-                <Route path={'/addAuthor'}>
-                    <AddAuthor />
-                </Route>
-                <Route path="/addPatient">
-                    <AddDocument/>
-                </Route>
-
-                <Route path="/addPharm">
-                    <AddArticle/>
-                </Route>
-
-                <Route path={'/staffManage'}>
-                    <AllSourcesPage />
-                </Route>
-
-                <Route path={"/"}>
-                    <AllSourcesPage />
-                </Route> */}
-
             </Switch>
         );
     }
