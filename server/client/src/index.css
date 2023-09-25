@@ -1,0 +1,76 @@
+* {
+    font-family: "Times New Roman", sans-serif;
+}
+body {
+    background-color: #edf2f5;
+}
+
+/*---------------------------------------------------------------------------------------*/
+/*----------------------------------Общие стили для всех модулей-------------------------*/
+/*---------------------------------------------------------------------------------------*/
+.standard_input__wrap {
+    position: relative;
+}
+.standard_input__wrap input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px #fff solid;
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.standard_input__wrap input::placeholder {
+    color: rgba(255, 255, 255, .6);
+}
+.standard_input__wrap input:focus,
+.standard_input__wrap input:valid {
+    outline: 0;
+    border-bottom-color: lightblue;
+}
+
+.standard_input__wrap input:valid {
+    color: #fff;
+}
+.findPatient_input input {
+    margin: 30px auto;
+    width: 40%;
+}
+.incorrect_value {
+    color: #fa7373 !important;
+    position: absolute;
+    right: 30%;
+}
+
+.standard_btn {
+    cursor: pointer;
+    display: inline-block;
+    background: lightblue;
+    border: 2px solid lightblue;
+    font-family: inherit;
+    border-radius: 5px;
+    color: rgb(7, 46, 101);
+    font-size: 22px!important;
+    transition: all .5s ease;
+    box-shadow: 3px 3px 15px rgb(33, 64, 103);
+    margin-right: 10px!important;
+}
+.standard_btn:disabled {
+    background-color: rgb(5, 69, 105);
+    color: rgba(255, 255, 255, .6);
+    cursor: default;
+}
+.standard_btn a {
+    color: rgb(7, 46, 101);
+}
+.standard_btn:hover {
+    border: 2px solid lightblue;
+    background-color: steelblue;
+    color: #fff;
+}
+.incorrect_value__edit {
+    font-size: 18px;
+    top: 55px!important;
+}

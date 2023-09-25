@@ -1,0 +1,10 @@
+.graph_item {
+    margin: 0 auto 50px;
+    width: 90%;
+}
+.graph_subtitle {
+    font-weight: 400;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 25px;
+}

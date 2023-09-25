@@ -1,0 +1,52 @@
+.players {
+    padding: 20px;
+}
+
+.players__items {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+   
+    grid-template-columns: 1fr 1fr;
+}
+
+.players__item {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+    padding: 10px;
+}
+
+.players__item--label {
+    font-weight: bold;
+    
+    font-size: 1.625rem;
+    line-height: 1.5;
+    letter-spacing: 0.1px;
+    color: #101418;
+}
+
+.players__item--description {
+    color: #1C2025;
+}
+
+.players__item--delite-btn {
+    margin-top: 10px;
+}
+
+.players__item--edit-btn {
+   margin-right: 10px !important; 
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.modal-container  div { 
+    margin-bottom: 10px;
+}

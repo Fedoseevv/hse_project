@@ -1,0 +1,10 @@
+.online-monitoring {
+
+}
+.online-monitoring-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 500px);
+    grid-row-gap: 50px;
+    margin-bottom: 100px;
+}

@@ -1,0 +1,10 @@
+.graph-element {
+    width: 100%!important;
+    margin-bottom: 100px;
+}
+.graph-element-header {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 300;
+    color: #173954;
+}
