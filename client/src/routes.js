@@ -1,8 +1,11 @@
 import {Switch, Route, Redirect} from "react-router-dom";
 import {AuthPage} from "./pages/AuthPage/AuthPage";
 import { StatisticPage } from "./pages/StatisticPage/StatisticPage";
-import { OnlineGraph } from "./pages/OnlineGraph/OnlineGraph";
 import { MonitoringPage } from './pages/MonitoringPage/MonitoringPage';
+import {PlayersPage} from './pages/PlayersPage/PlayersPage';
+import {DevicesPage} from './pages/DevicesPage/DevicesPage';
+import { SessionPage } from "./pages/SessionPage/SessionPage";
+
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
@@ -13,6 +16,15 @@ export const useRoutes = isAuthenticated => {
                 </Route>
                 <Route path="/statistics">
                     <StatisticPage />
+                </Route>
+                <Route path="/players">
+                    <PlayersPage/>
+                </Route>
+                <Route path="/devices">
+                    <DevicesPage/>
+                </Route>
+                <Route path="/session">
+                    <SessionPage/>
                 </Route>
                 {/* <Route path="/addEmp" exact>
                     <AddBook/>
