@@ -76,3 +76,9 @@
     color: #444;
     cursor: not-allowed;
 }
+
+.stat-btn {
+    display: block;
+    align-items: center;
+    margin: 30px auto 100px;
+}

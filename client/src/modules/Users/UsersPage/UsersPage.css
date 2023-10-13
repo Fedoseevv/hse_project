@@ -9,10 +9,21 @@
 .users-content {
     display: grid;
     grid-template-columns: repeat(4, 25%);
-    grid-template-rows: repeat(4, 325px);
+    grid-template-rows: repeat(auto-fill, 325px);
     grid-row-gap: 50px;
     margin-bottom: 100px;
 }
+
+.users-btns {
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    width: 600px;
+}
+.user-btn {
+    height: 50px;
+}
+
 .player-btns {
     align-items: center;
     text-align: center;
@@ -31,6 +42,7 @@
     transition: all .5s ease;
     box-shadow: 3px 3px 15px rgb(115, 133, 154);
     margin-right: 10px!important;
+    margin-bottom: 10px;
 }
 
 .player-btn a {
@@ -40,4 +52,53 @@
     border: 2px solid lightblue;
     background-color: #c2c6cb;
     color: #fff;
+}
+.player-btn:disabled {
+    background-color: #787b7e;
+    color: #444444!important;
+    cursor: not-allowed;
+}
+.player-btn:disabled:hover {
+    color: #444444!important;
+    cursor: not-allowed;
+}
+.users-modal {
+    padding: 25px;
+    text-align: center;
+    font-size: 30px;
+}
+.user-modal-content {
+    color: #ffffff;
+}
+.user-modal-header {
+    margin-bottom: 25px;
+    font-size: 50px;
+    color: #fff;
+}
+.user-modal-input {
+    margin-bottom: 28px!important;
+}
+.user-modal-input input {
+    font-size: 25px;
+    color: #ffffff !important;
+}
+.incorrect_value-user {
+    right: 1%!important;
+    top: 55%!important;
+}
+
+.user-btn-modal {
+    margin-top: 50px;
+}
+.user-btn-modal:disabled {
+    background-color: #313030;
+    color: #ffffff;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+.user-btn-modal:disabled:hover {
+
+}
+.user-btn-modal:not(:last-child) {
+    margin-right: 50px!important;
 }

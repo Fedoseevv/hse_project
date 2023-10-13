@@ -15,6 +15,7 @@ import {
 import {Line} from 'react-chartjs-2';
 
 import './StaticGraph.css';
+import {Loader} from "../loader/Loader";
 
 ChartJS.register(
     CategoryScale,
@@ -26,10 +27,13 @@ ChartJS.register(
     Legend
 );
 
-export const StaticGraph = ({ data, fieldName, header, label }) => {
+export const StaticGraph = ({ data, fieldName, header, label, isShow }) => {
     const chart = useRef(null);
     const { loading, request } = useHttp();
     const history = useHistory();
+
+    const [ show, setShow ] = useState(isShow)
+
 
     const [ info, setInfo ] = useState({
         labels: data.map(item => new Date(Date.parse(item.current_ts)).toLocaleDateString() + " - " + new Date(Date.parse(item.current_ts)).toLocaleTimeString()),
@@ -113,6 +117,9 @@ export const StaticGraph = ({ data, fieldName, header, label }) => {
         })
     }, [ data ])
 
+    if (loading) {
+        return <Loader />
+    }
 
     return (
         <div className={"graph_item"}>

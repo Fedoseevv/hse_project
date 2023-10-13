@@ -6,7 +6,7 @@ import * as am5xy from "@amcharts/amcharts5/xy";
 import {Theme as am5themes_Animated} from "@amcharts/amcharts5";
 import './OnlineGraph.css';
 
-export const OnlineGraph = ({ url, fieldName, id, header }) => {
+export const OnlineGraph = ({ url, fieldName, id, header, deviceId }) => {
     const { loading, request } = useHttp();
 
     useLayoutEffect(() => {
@@ -18,7 +18,7 @@ export const OnlineGraph = ({ url, fieldName, id, header }) => {
 
         const data = [
             {
-                date: 620,
+                date: 0,
                 value: 1,
             }
         ]
@@ -116,6 +116,7 @@ export const OnlineGraph = ({ url, fieldName, id, header }) => {
 
 
         async function addData() {
+            console.log(deviceId)
             const fetched = await request(url);
             const updPoints = fetched.map(item => {
                 return {

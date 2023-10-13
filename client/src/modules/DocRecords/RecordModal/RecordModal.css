@@ -25,9 +25,9 @@
     transform: scale(0.5);
     transition: all 0.3s ease;
     overflow-y: scroll;
-    background-color: rgb(45, 87, 150);
+    background-color: rgb(26, 10, 10);
     color: white;
-    box-shadow: 5px 5px 15px rgb(21 74 126), -5px -5px 5px rgb(21 74 126);
+    box-shadow: 5px 5px 15px  rgb(163, 164, 169), -5px -5px 5px rgb(163, 164, 169);
     padding: 25px;
 }
 
@@ -42,12 +42,12 @@ body.active {
 .recModal ::-webkit-scrollbar {
     width: 5px; /* ширина для вертикального скролла */
     height: 8px; /* высота для горизонтального скролла */
-    background-color: #143861;
+    background-color: #677277;
 }
 
 /* ползунок скроллбара */
 .recModal ::-webkit-scrollbar-thumb {
-    background-color: steelblue;
+    background-color: #6a6d70;
     border-radius: 9em;
     box-shadow: inset 1px 1px 10px #f3faf7;
 }
@@ -117,7 +117,7 @@ body.active {
     border-radius: 5px;
 }
 .docRecord_modal__select option:focus {
-    background-color: steelblue;
+    background-color: #99b7d0;
 }
 
 .pharma_list {

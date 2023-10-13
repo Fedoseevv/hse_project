@@ -24,9 +24,12 @@
     "react-radio-buttons": "^1.2.2",
     "react-router-dom": "^5.2.1",
     "react-scripts": "5.0.0",
+    "react-slider": "^2.0.6",
+    "react-time-range-slider": "^1.1.2",
     "react-to-pdf": "^0.0.14",
     "react-yandex-maps": "^4.6.0",
     "uuid": "^8.3.2",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

@@ -1,0 +1,13 @@
+.devices-modal {
+    background-color: rgb(26, 10, 10);
+    padding: 25px;
+    text-align: center;
+    font-size: 30px;
+}
+.devices-content {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(auto-fill, auto);
+    grid-row-gap: 50px;
+    margin-bottom: 100px;
+}

@@ -4,19 +4,39 @@ import { StatisticPage } from "./pages/StatisticPage/StatisticPage";
 import { OnlineGraph } from "./pages/OnlineGraph/OnlineGraph";
 import { MonitoringPage } from './pages/MonitoringPage/MonitoringPage';
 import { UsersPage } from "./modules/Users/UsersPage/UsersPage";
+import {DevicesPage} from "./modules/Devices/DevicesPage/DevicesPage";
+import {SessionsPage} from "./modules/Sessions/SessionsPage/SessionsPage";
+import {CurrentSession} from "./modules/Sessions/CurrentSession/CurrentSession";
+import {PersonStat} from "./modules/Sessions/PersonStat/PersonStat";
+import {TotalStat} from "./modules/Sessions/TotalStat/TotalStat";
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
         return (
             <Switch>
+                {/*<Route path="/" exact>*/}
+                {/*    <MonitoringPage />*/}
+                {/*</Route>*/}
                 <Route path="/" exact>
-                    <MonitoringPage />
-                </Route>
-                <Route path="/statistics">
-                    <StatisticPage />
-                </Route>
-                <Route path="/users">
                     <UsersPage />
+                </Route>
+                {/*<Route path="/statistics">*/}
+                {/*    <StatisticPage />*/}
+                {/*</Route>*/}
+                <Route path="/devices">
+                    <DevicesPage />
+                </Route>
+                <Route path="/sessions">
+                    <SessionsPage />
+                </Route>
+                <Route path="/s/:id">
+                    <CurrentSession />
+                </Route>
+                <Route path="/stat/:id">
+                    <PersonStat />
+                </Route>
+                <Route path="/fullStat/:id">
+                    <TotalStat />
                 </Route>
             </Switch>
         );

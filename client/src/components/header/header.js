@@ -21,9 +21,9 @@ export const Header = (props) => {
             <div className={"header_container"}>
                 <div className="wrapper">
                     <ul className="navigation">
-                        <li className={"link_item"}><Link  to={'/'}>Мониторинг</Link></li>
-                        <li className={"link_item"}><Link to={'/statistics'}>Статистика</Link></li>
-                        <li className={"link_item"}><Link to={'/users'}>Пользователи</Link></li>
+                        <li className={"link_item"}><Link to={'/'}>Пользователи</Link></li>
+                        <li className={"link_item"}><Link to={'/devices'}>Устройства</Link></li>
+                        <li className={"link_item"}><Link to={"/sessions"}>Сессии</Link></li>
                         <li className={"link_item link_exit"}><a href="/" onClick={logoutHandler}>Выйти</a></li>
                         <div className={"clear"}></div>
                     </ul>

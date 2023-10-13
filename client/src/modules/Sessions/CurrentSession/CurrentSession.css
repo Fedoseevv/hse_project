@@ -1,0 +1,51 @@
+.session-content {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: repeat(auto-fill, 555px);
+    grid-row-gap: 50px;
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+.session-msg {
+    font-size: 45px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+.session-btns {
+    text-align: center;
+    margin-top: 50px;
+}
+.session-btn {
+    width: 30%;
+    cursor: pointer;
+    display: inline-block;
+    background: #d7d4d4;
+    border: 2px solid #cdd6e7;
+    font-family: inherit;
+    border-radius: 5px;
+    color: rgb(7, 46, 101);
+    font-size: 35px!important;
+    transition: all .5s ease;
+    box-shadow: 3px 3px 15px rgb(115, 133, 154);
+    margin: 0 auto;
+}
+
+.session-btn a {
+    color: rgb(7, 46, 101);
+}
+.session-btn:hover {
+    border: 2px solid lightblue;
+    background-color: #c2c6cb;
+    color: #fff;
+}
+.session-btn:disabled {
+    background-color: #787b7e;
+    color: #444444!important;
+    cursor: not-allowed;
+}
+.session-btn:disabled:hover {
+    color: #444444!important;
+    cursor: not-allowed;
+}

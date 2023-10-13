@@ -1,0 +1,43 @@
+.sessions-header {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.sessions-content {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(auto-fill, auto);
+    grid-row-gap: 50px;
+    margin-bottom: 100px;
+}
+.sessions-btns {
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    width: 600px;
+}
+.auth_form__role:not(:last-child) {
+    margin-right: 50px;
+}
+.binding-items-text {
+    margin-top: 30px;
+    color: #ffffff;
+}
+.binding-items-text button {
+    color: #ffffff;
+    cursor: pointer;
+    display: block;
+    margin: 5px auto;
+}
+
+.binding-items-text button:hover {
+    opacity: .5;
+    transition: all .4s ease;
+}
+
+
+.session-modal-btn {
+    margin-top: 50px;
+    font-size: 28px!important;
+    padding: 5px!important;
+}

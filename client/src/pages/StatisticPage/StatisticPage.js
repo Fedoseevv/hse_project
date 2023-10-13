@@ -6,27 +6,45 @@ import {StaticGraph} from "../../components/static-graph/StaticGraph";
 
 import './StatisticPage.css';
 import {Modal} from "../../components/modal/Modal";
+import {load} from "@amcharts/amcharts5/.internal/core/util/Net";
 
 
-export const StatisticPage = () => {
+export const StatisticPage = ({ sessionId, deviceId, period }) => {
     const { loading, request } = useHttp();
     const history = useHistory();
 
-    const [ startDt, setStartDt ] = useState(null);
-    const [ endDt, setEndDt ] = useState(null);
+    const [ start, setStartDt ] = useState(null);
+    const [ end, setEndDt ] = useState(null);
     const [ allData, setAllData ] = useState([]);
-
     const [ periodData, setPeriodData ] = useState([]);
+    const [ isShow, setIsShow ] = useState(false)
 
 
     const getData = useCallback(async () => {
-        const fetched = await request('/api/monitoring/all', 'GET');
+        const body = {
+            sessionId: sessionId,
+            deviceId: deviceId
+        }
+        const fetched = await request('/api/sessions/totalByDevice', 'POST', body);
+        console.log(fetched)
+        setPeriodData(fetched)
         setAllData(fetched);
     }, [])
 
+    const upd = async () => {
+        const body = {
+            sessionId: sessionId,
+            deviceId: deviceId
+        }
+        const fetched = await request('/api/sessions/totalByDevice', 'POST', body);
+        console.log(fetched)
+        setPeriodData(fetched)
+        setAllData(fetched);
+    }
+
     useEffect(async () => {
         await getData()
-    }, [getData])
+    }, [])
 
     const changePeriods = (e) => {
         console.log(e.target.value);
@@ -39,72 +57,78 @@ export const StatisticPage = () => {
     }
 
     const createReport = async () => {
-        const start = startDt.replace("T", " ") + ":00"
-        const end = endDt.replace("T", " ") + ":00"
-        console.log(`start date: ${start}`)
-        console.log(`end date: ${end}`)
+        // const start = startDt.replace("T", " ") + ":00"
+        // const end = endDt.replace("T", " ") + ":00"
+        // console.log(`start date: ${start}`)
+        // console.log(`end date: ${end}`)
+        // const body = {
+        //     startDate: start,
+        //     endDate: end
+        // }
+        //
+        // await request("/api/monitoring/period", "POST", body)
+        //     .then(response => {
+        //         setPeriodData(response);
+        //     });
+
+        const tmp = new Date(allData[0].start).toLocaleDateString().split(".")
+        const today = tmp[2] + "-" + tmp[1] + "-" + tmp[0]
+
+        const startWithSec = today + " " + period.start + ":00"
+
+        const endWithSec = today + " " + period.end + ":00"
+        console.log(`start: ${startWithSec}`)
+        console.log(`end: ${endWithSec}`)
+
         const body = {
-            startDate: start,
-            endDate: end
+            startDate: startWithSec,
+            endDate: endWithSec
         }
 
         await request("/api/monitoring/period", "POST", body)
             .then(response => {
+                console.log(response)
                 setPeriodData(response);
             });
     }
 
+
+    if (loading) {
+        return <Loader />
+    }
+
     return (
         <div className={"monitoring"}>
-            <h1 className="header">Статистические данные</h1>
-            <div className="text-wrap">
-                <div className="text-header">Укажите период для предоставления статистики</div>
-                <div className="input-wrap">
-                    <input onChange={changePeriods} id={"start-dt"} className={"date-input"} type="datetime-local"/>
-                    <input onChange={changePeriods} id={"end-dt"} className={"date-input"} type="datetime-local"/>
-                </div>
-                <button onClick={createReport}
-                        className={"btn"}
-                        disabled={startDt == null || endDt == null}>Сформировать отчет</button>
-            </div>
+            <button onClick={async () => await createReport()}
+                    className={"btn stat-btn"}>Сформировать отчет</button>
+                <div className="header">{allData.length > 0 ? allData[0].surname + " " + allData[0].name : ""}</div>
             {
-                startDt !== null && endDt !== null
-                && periodData.length > 0
-                && <>
-                    <div className="text-wrap text-info">Период отчета:  <span>{startDt.replace("T", " ")}</span> — <span>{endDt.replace("T", " ")}</span></div>
+                <>
                     <StaticGraph data={periodData} fieldName={"pulse"} header={"Пульс"} label={"Пульс"} />
                 </>
             }
 
             {
-                startDt !== null && endDt !== null
-                && periodData.length > 0
-                && <>
+                <>
                     <StaticGraph data={periodData} fieldName={"aox"} header={"Ускорение oX"} label={"Ускорение oX"} />
                 </>
             }
 
             {
-                startDt !== null && endDt !== null
-                && periodData.length > 0
-                && <>
+                <>
                     <StaticGraph data={periodData} fieldName={"aoy"} header={"Ускорение oY"} label={"Ускорение oY"} />
                 </>
             }
 
             {
-                startDt !== null && endDt !== null
-                && periodData.length > 0
-                && <>
+                <>
                     <StaticGraph data={periodData} fieldName={"aoz"} header={"Ускорение oZ"} label={"Ускорение oZ"} />
                 </>
             }
 
             {
-                startDt !== null && endDt !== null
-                && periodData.length > 0
-                && <>
-                    <StaticGraph data={periodData} fieldName={"a"} header={"Сумма ускорений"} label={"Ускорение"} />
+                <>
+                    <StaticGraph data={allData} fieldName={"a"} header={"Сумма ускорений"} label={"Ускорение"} />
                 </>
             }
 
