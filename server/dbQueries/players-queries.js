@@ -1,10 +1,10 @@
 const pool = require('../db-connector');
 const {request} = require('express');
 
-const addRecord = (user_id, surname, name, weight, height, position, age) => {
+const addRecord = (user_id, surname, name, weight, height, position, age, number) => {
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO public.person (user_id, surname, name, weight, height, position, age)" +
-                    "VALUES ($1, $2, $3, $4, $5, $6, $7)", [user_id, surname, name, weight, height, position, age],
+        pool.query("INSERT INTO public.person (user_id, surname, name, weight, height, position, age, number)" +
+                    "VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [user_id, surname, name, weight, height, position, age, number],
                     (error, results) => {
                         if (error) {
                             reject(error)
@@ -16,10 +16,10 @@ const addRecord = (user_id, surname, name, weight, height, position, age) => {
     })
 }
 
-const updateRecord = (user_id, surname, name, weight, height, position, age) => {
+const updateRecord = (user_id, surname, name, weight, height, position, age, number) => {
     return new Promise((resolve, reject) => {
-        pool.query("UPDATE public.person SET surname=$2, name=$3, weight=$4, height=$5, position=$6, age=$7 WHERE id=$1",
-            [user_id, surname, name, weight, height, position, age],
+        pool.query("UPDATE public.person SET surname=$2, name=$3, weight=$4, height=$5, position=$6, age=$7, number=$8 WHERE user_id=$1",
+            [user_id, surname, name, weight, height, position, age, number],
             (error, result) => {
                 if (error) {
                     reject(error)

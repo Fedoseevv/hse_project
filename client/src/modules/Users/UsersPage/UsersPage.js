@@ -26,6 +26,7 @@ export const UsersPage = () => {
     const height = useInput("", {isEmpty: true, isDigit: 1});
     const position = useInput("", {isEmpty: true, minLength: 2});
     const age = useInput("", {isEmpty: true, isDigit: 1});
+    const number = useInput('', { isEmpty: true, isDigit: 1 });
 
     const deleteUser = async (id) => {
         const req = await request(`/api/players/delete/${id}`)
@@ -40,7 +41,8 @@ export const UsersPage = () => {
             weight: player.weight,
             height: player.height,
             position: player.position,
-            age: player.age
+            age: player.age,
+            number: player.number
         }
 
         await request('/api/players/update', 'POST', body)
@@ -54,7 +56,8 @@ export const UsersPage = () => {
             weight: weight.value,
             height: height.value,
             position: position.value,
-            age: age.value
+            age: age.value,
+            number: number.value
         }
 
         const response = await request(`/api/players/add`, 'POST', body)
@@ -71,6 +74,8 @@ export const UsersPage = () => {
         position.setDirty(false)
         age.setValue("")
         age.setDirty(false)
+        number.setValue("")
+        number.setDirty(false)
         await getData()
     }
 
@@ -175,11 +180,22 @@ export const UsersPage = () => {
                                 onBlur={e => age.onBlur(e)}
                                 type="text"/>
                         </div>
+                        <div className={"standard_input__wrap user-modal-input"}>
+                            {(number.isDirty && number.isEmpty)
+                                && <div className="incorrect_value addPat_incorrect__value incorrect_value__edit incorrect_value-user">Поле не может быть пустым</div>}
+                            <div className={"user-modal-name"}>Игровой номер</div>
+                            <input
+                                placeholder={"Введите номер игрока"}
+                                value={number.value}
+                                onChange={e => number.onChange(e)}
+                                onBlur={e => number.onBlur(e)}
+                                type="text"/>
+                        </div>
                     </div>
                     <div className="users-btns-modal">
                         <button
                             disabled={name.isEmpty || surname.isEmpty || weight.isEmpty
-                                || height.isEmpty || position.isEmpty || age.isEmpty}
+                                || height.isEmpty || position.isEmpty || age.isEmpty || number.isEmpty}
                             onClick={addUser}
                             className="player-btn user-btn user-btn-modal">
                             Добавить

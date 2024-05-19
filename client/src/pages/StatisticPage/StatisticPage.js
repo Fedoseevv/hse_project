@@ -16,6 +16,7 @@ export const StatisticPage = ({ sessionId, deviceId, period }) => {
     const [ start, setStartDt ] = useState(null);
     const [ end, setEndDt ] = useState(null);
     const [ allData, setAllData ] = useState([]);
+    const [ statistic, setStatistic ] = useState({});
     const [ periodData, setPeriodData ] = useState([]);
     const [ isShow, setIsShow ] = useState(false)
 
@@ -25,11 +26,15 @@ export const StatisticPage = ({ sessionId, deviceId, period }) => {
             sessionId: sessionId,
             deviceId: deviceId
         }
+        console.log(period)
         const fetched = await request('/api/sessions/totalByDevice', 'POST', body);
+        const statData = await request('/api/sessions/deviceStat', 'POST', body);
         console.log(fetched)
-        setPeriodData(fetched)
+        setPeriodData(fetched);
         setAllData(fetched);
-    }, [])
+        setStatistic(statData);
+        console.log(statData);
+    }, []);
 
     const upd = async () => {
         const body = {
@@ -57,20 +62,6 @@ export const StatisticPage = ({ sessionId, deviceId, period }) => {
     }
 
     const createReport = async () => {
-        // const start = startDt.replace("T", " ") + ":00"
-        // const end = endDt.replace("T", " ") + ":00"
-        // console.log(`start date: ${start}`)
-        // console.log(`end date: ${end}`)
-        // const body = {
-        //     startDate: start,
-        //     endDate: end
-        // }
-        //
-        // await request("/api/monitoring/period", "POST", body)
-        //     .then(response => {
-        //         setPeriodData(response);
-        //     });
-
         const tmp = new Date(allData[0].start).toLocaleDateString().split(".")
         const today = tmp[2] + "-" + tmp[1] + "-" + tmp[0]
 
@@ -102,6 +93,48 @@ export const StatisticPage = ({ sessionId, deviceId, period }) => {
             <button onClick={async () => await createReport()}
                     className={"btn stat-btn"}>Сформировать отчет</button>
                 <div className="header">{allData.length > 0 ? allData[0].surname + " " + allData[0].name : ""}</div>
+
+                <div className={"common-stats"}>
+                    <div className="common-stats-header">Общие статистики по тренировке</div>
+                    <div className="common-stats-wrap">
+                        <div className="common-stats-elem">
+                            <div className="common-stats-subheader">Ускорение:</div>
+                            <div className="common-stats-body">
+                                <div className="stats-body-item">Среднее ускорение: {Number(statistic["a_avg"]).toFixed(3)} м/с²</div>
+                                <div className="stats-body-item">Среднее ускорение oX: {Number(statistic["aox_avg"]).toFixed(3)} м/с²</div>
+                                <div className="stats-body-item">Среднее ускорение oY: {Number(statistic["aoy_avg"]).toFixed(3)} м/с²</div>
+                                <div className="stats-body-item">Среднее ускорение oZ: {Number(statistic["aoz_avg"]).toFixed(3)} м/с²</div>
+
+                                <div className="stats-body-item">Медианное ускорение: {Number(statistic["median_a"]).toFixed(3)} м/с²</div>
+                                <div className="stats-body-item">Медианное ускорение oX: {Number(statistic["median_aox"]).toFixed(3)} м/с²</div>
+                                <div className="stats-body-item">Медианное ускорение oY: {Number(statistic["median_aoy"]).toFixed(3)} м/с²</div>
+                                <div className="stats-body-item">Медианное ускорение oZ: {Number(statistic["median_aoz"]).toFixed(3)} м/с²</div>
+                            </div>
+                        </div>
+
+                        <div className="common-stats-elem">
+                            <div className="common-stats-subheader">Пульс:</div>
+                            <div className="common-stats-body">
+                                <div className="stats-body-item">Средний пульс: {Number(statistic["pulse_avg"]).toFixed(3)} уд/мин</div>
+                                <div className="stats-body-item">Медианный пульс: {Number(statistic["median_pulse"]).toFixed(3)} уд/мин</div>
+                                <div className="stats-body-item">Максимальный пульс: {Number(statistic["pulse_max"]).toFixed(3)} уд/мин</div>
+                                <div className="stats-body-item">Минимальный пульс: {Number(statistic["pulse_min"]).toFixed(3)} уд/мин</div>
+                                <div className="stats-body-item">Дисперсия пульса: {Number(statistic["disp_pulse"]).toFixed(3)}</div>
+                                <div className="stats-body-item">Стандартное отклонение: {Number(statistic["kw_pulse"]).toFixed(3)}</div>
+                            </div>
+                        </div>
+
+                        <div className="common-stats-elem">
+                            <div className="common-stats-subheader">Другие показатели:</div>
+                            <div className="common-stats-body">
+                                <div className="stats-body-item">Общее расстояние: {Number(statistic["total_distance"] / 1000.0).toFixed(3)} км.</div>
+                                <div className="stats-body-item">Средняя скорость передвижения: {Number(statistic["avg_speed"] / 1000.0).toFixed(3)} м/сек</div>
+                                <div className="stats-body-item">Количество шагов: {Number(statistic["steps"])} шт.</div>
+                                <div className="stats-body-item">Время в активной фазе: {(Number(statistic["active_time"]) / 60).toFixed(3)} мин.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {
                 <>
                     <StaticGraph data={periodData} fieldName={"pulse"} header={"Пульс"} label={"Пульс"} />
@@ -131,7 +164,6 @@ export const StatisticPage = ({ sessionId, deviceId, period }) => {
                     <StaticGraph data={allData} fieldName={"a"} header={"Сумма ускорений"} label={"Ускорение"} />
                 </>
             }
-
         </div>
     )
 }

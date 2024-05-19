@@ -14,6 +14,7 @@ export const UsersItem = ({ item, onEditHandler, onDeleteHandler }) => {
     const height = useInput(item.height, {isEmpty: true, isDigit: 1});
     const position = useInput(item.position, {isEmpty: true, minLength: 2});
     const age = useInput(item.age, {isEmpty: true, isDigit: 1});
+    const number = useInput(item.number, {isEmpty: true, isDigit: 1});
 
     const prepFoUpdate = async () => {
         const body = {
@@ -23,7 +24,8 @@ export const UsersItem = ({ item, onEditHandler, onDeleteHandler }) => {
             weight: weight.value,
             height: height.value,
             position: position.value,
-            age: age.value
+            age: age.value,
+            number: number.value
         }
         await onEditHandler(body)
 
@@ -36,6 +38,7 @@ export const UsersItem = ({ item, onEditHandler, onDeleteHandler }) => {
         height.setValue(item.height)
         position.setValue(item.position)
         age.setValue(item.age)
+        number.setValue(item.number)
         setActive(true)
     }
 
@@ -47,6 +50,7 @@ export const UsersItem = ({ item, onEditHandler, onDeleteHandler }) => {
                 <div className="player-field">Вес: {item.weight} кг.</div>
                 <div className="player-field">Рост: {item.height} см.</div>
                 <div className="player-field">Игровая позиция: {item.position.toUpperCase()}</div>
+                <div className="player-field">Игровой номер: {item.number}</div>
                 <div className="player-field">Возраст: {item.age} лет</div>
             </div>
             <div className="player-btns">
@@ -121,6 +125,17 @@ export const UsersItem = ({ item, onEditHandler, onDeleteHandler }) => {
                                 type="text"/>
                         </div>
                         <div className={"standard_input__wrap user-modal-input"}>
+                            {(position.isDirty && position.isEmpty)
+                                && <div className="incorrect_value addPat_incorrect__value incorrect_value__edit incorrect_value-user">Поле не может быть пустым</div>}
+                            <div className={"user-modal-name"}>Игровой номер</div>
+                            <input
+                                placeholder={"Введите игровую позицию"}
+                                value={number.value}
+                                onChange={e => number.onChange(e)}
+                                onBlur={e => number.onBlur(e)}
+                                type="text"/>
+                        </div>
+                        <div className={"standard_input__wrap user-modal-input"}>
                             {(age.isDirty && age.isEmpty)
                                 && <div className="incorrect_value addPat_incorrect__value incorrect_value__edit incorrect_value-user">Поле не может быть пустым</div>}
                             <div className={"user-modal-name"}>Возраст</div>
@@ -151,11 +166,3 @@ export const UsersItem = ({ item, onEditHandler, onDeleteHandler }) => {
         </div>
     )
 }
-
-// surname
-// name
-// weight 
-// height 
-// position 
-// age 
-// user_id

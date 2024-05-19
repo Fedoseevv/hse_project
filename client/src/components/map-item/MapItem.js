@@ -6,16 +6,18 @@ import player from './content/player.svg'
 
 import './MapItem.css';
 
-export const MapItem = ({ label }) => {
+export const MapItem = ({ label, deviceId }) => {
     const url = "https://www.svgrepo.com/show/307836/football-football-player.svg"
     const { loading, request } = useHttp();
     const [ position, setPosition ] = useState([]);
     const [ start, setStart ] = useState([55.83, 37.56995])
     const [ allPoint, setAllPoints ] = useState([]);
+    const [ number, setNumber ] = useState(label)
 
     const getData = useCallback(async () => {
-        const fetched = await request('/api/monitoring/lastPos');
+        const fetched = await request(`/api/monitoring/lastPos/${deviceId}`);
         setPosition([fetched["longitude"], fetched["latitude"]]);
+        setNumber(fetched["number"].toString());
     }, []);
 
     useEffect(async () => {
@@ -32,38 +34,21 @@ export const MapItem = ({ label }) => {
             <div className={"online-monitoring-map"}>
                 <YMaps>
                     <Map height={750} width={750}
-                        // defaultState={{ center: end, zoom: 19,
-                        //     controls: ['zoomControl', 'fullscreenControl'] }}
+                        defaultState={{ center: position, zoom: 19,
+                            controls: ['zoomControl', 'fullscreenControl'] }}
                          state={{ center: start, zoom: 19,
                              controls: ['zoomControl', 'fullscreenControl'] }}
                          modules={['control.ZoomControl', 'control.FullscreenControl']}
                     >
-                        {/*<Polyline geometry={[start, end]} options={{*/}
-                        {/*    balloonCloseButton: true,*/}
-                        {/*    strokeColor: '#216eda',*/}
-                        {/*    strokeWidth: 5,*/}
-                        {/*    strokeOpacity: 0.5*/}
-                        {/*}} />*/}
                         <Placemark
                             options={{
-                                iconCaption: label,
-                                iconContent: player,
-                                iconLayout: 'default#image',
-                                iconImageSize: [35, 35],
-                                // Смещение левого верхнего угла иконки относительно
-                                // её "ножки" (точки привязки).
+                                iconCaption: number,
+                                iconImageSize: [45, 45],
                                 iconImageOffset: [-5, -38],
-                                iconImageHref: url
+
                             }}
                             properties={{
-                                iconCaption: label,
-                                // iconContent: player,
-                                // iconLayout: 'default#image',
-                                // iconImageSize: [30, 42],
-                                // // Смещение левого верхнего угла иконки относительно
-                                // // её "ножки" (точки привязки).
-                                // iconImageOffset: [-5, -38],
-                                // iconImageHref: "https://png.pngtree.com/png-vector/20190119/ourmid/pngtree-cartoon-cartoon-boy-athlete-table-tennis-ball-png-image_475956.jpg"
+                                iconCaption: number
                             }}
                             geometry={position}/>
                     </Map>

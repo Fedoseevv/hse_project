@@ -6,6 +6,7 @@ export const MonitoringPage = ({ deviceId }) => {
 
     return (
         <div className={"online-monitoring"}>
+            <div className="online-monitoring-header">Онлайн показатели спортсмена</div>
             <div className={"online-monitoring-wrap"}>
                 <OnlineGraph url={`/api/monitoring/last3s/${deviceId}`}
                              fieldName={"pulse"}

@@ -44,6 +44,7 @@ export const DeviceItem = ({ item, onDeleteHandler, onEditHandler }) => {
             <Modal active={active} setActive={setActive}>
                 <div className="devices-modal">
                     <div className="user-modal-header">Изменение устройства</div>
+                    <div className={"user-modal-id"}>id устройства: {item.device_id}</div>
                     <div className="user-modal-content">
                         <div className={"standard_input__wrap user-modal-input"}>
                             {(alias.isDirty && alias.isEmpty)

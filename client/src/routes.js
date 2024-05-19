@@ -1,8 +1,5 @@
 import {Switch, Route, Redirect} from "react-router-dom";
 import {AuthPage} from "./pages/AuthPage/AuthPage";
-import { StatisticPage } from "./pages/StatisticPage/StatisticPage";
-import { OnlineGraph } from "./pages/OnlineGraph/OnlineGraph";
-import { MonitoringPage } from './pages/MonitoringPage/MonitoringPage';
 import { UsersPage } from "./modules/Users/UsersPage/UsersPage";
 import {DevicesPage} from "./modules/Devices/DevicesPage/DevicesPage";
 import {SessionsPage} from "./modules/Sessions/SessionsPage/SessionsPage";

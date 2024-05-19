@@ -4,7 +4,6 @@ import {useHistory} from "react-router-dom";
 import {useCallback, useEffect, useState} from "react";
 import {Loader} from "../../../components/loader/Loader";
 import {DeviceItem} from "../DeviceItem/DeviceItem";
-import {RecordModal} from "../../DocRecords/RecordModal/RecordModal";
 import {useInput} from "../../../hooks/validationHook";
 import {Modal} from "../../../components/modal/Modal";
 

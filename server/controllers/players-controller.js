@@ -1,12 +1,14 @@
 const ApiError = require('../handlers/api-error');
 const personQueries = require('../dbQueries/players-queries');
+const { uuid } = require('uuidv4');
 
 class PlayersController {
     async addRecord(req, res, next) {
         try {
-            const {user_id, surname, name, weight, height, position, age} = req.body;
-            console.log(user_id, surname, name, weight, height, position, age);
-            await personQueries.addRecord(user_id, surname, name, weight, height, position, age)
+            const user_id = uuid()
+            const {surname, name, weight, height, position, age, number} = req.body;
+            console.log(user_id, surname, name, weight, height, position, age, number);
+            await personQueries.addRecord(user_id, surname, name, weight, height, position, age, number)
                     .then(resp => {
                         return res.status(201).json({ message: resp });
                     })
@@ -17,9 +19,9 @@ class PlayersController {
 
     async updateRecord(req, res, next) {
         try {
-            const {user_id, surname, name, weight, height, position, age} = req.body;
+            const {user_id, surname, name, weight, height, position, age, number} = req.body;
             console.log(user_id, surname, name, weight, height, position, age);
-            await personQueries.updateRecord(user_id, surname, name, weight, height, position, age)
+            await personQueries.updateRecord(user_id, surname, name, weight, height, position, age, number)
                 .then(response => {
                     return res.status(200).json({ message: response });
                 })

@@ -1,5 +1,6 @@
 const ApiError = require('../handlers/api-error');
 const deviceQueries = require('../dbQueries/device-queries');
+const {uuid} = require("uuidv4");
 
 class DeviceController {
     async getAll(req, res) {
@@ -27,8 +28,9 @@ class DeviceController {
 
     async addDevice(req, res) {
         try {
-            const {id, name} = req.body;
-            await deviceQueries.addDevice(id, name)
+            const {alias, id} = req.body;
+            // const id = uuid()
+            await deviceQueries.addDevice(id, alias || "имя не указано")
                 .then(resp => {
                     return res.status(201).json({message: resp})
                 })
@@ -39,8 +41,8 @@ class DeviceController {
 
     async updateDevice(req, res) {
         try {
-            const {id, name} = req.body;
-            await deviceQueries.updateDevice(id, name)
+            const {device_id, alias} = req.body;
+            await deviceQueries.updateDevice(device_id, alias)
                 .then(resp => {
                     return res.status(201).json({message: resp})
                 })

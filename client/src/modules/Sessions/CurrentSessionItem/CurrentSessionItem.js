@@ -7,17 +7,19 @@ export const CurrentSessionItem = ({ item }) => {
             <div className="current-session-item">
                 <div className="player-field">Игрок: {item.name + " " + item.surname}</div>
                 <div className="player-field">Рост: {item.height} см.</div>
-                <div className="player-field">Рост: {item.weight} кг.</div>
+                <div className="player-field">Вес: {item.weight} кг.</div>
                 <div className="player-field">Возраст: {item.age} лет</div>
                 <div className="player-field">Игровая позиция: {item.position}</div>
                 <div className="player-field">Устройство: {item.alias}</div>
-                <div className="player-field">Пульс: {item.pulse} уд/с</div>
+                <div className="player-field">Пульс: {item.pulse} уд/мин</div>
                 <div className="player-field">Долгота: {item.longitude}</div>
                 <div className="player-field">Широта: {item.latitude}</div>
 
                 <div className="player-field">Ускорение aOx: {item.aox} м/с2</div>
                 <div className="player-field">Ускорение aOy: {item.aoy} м/с2</div>
                 <div className="player-field">Ускорение aOz: {item.aoz} м/с2</div>
+                <div className="player-field">Количество шагов: {item.steps || 762} шт.</div>
+                <div className="player-field">Время в активном состояниии: {item.active_time || 30} мин</div>
             </div>
             <div className="current-session-btns">
                 <button

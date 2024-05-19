@@ -4,25 +4,25 @@ const monitoringQueries = require('../dbQueries/monitoring-queries');
 class MonitoringController {
     async addRecord(req, res, next) {
         try {
-            const [ latitude, longitude, coordX, coordY, coordZ, heartBit ] = req.body.test.split(";")
-            console.log(latitude, longitude, coordX, coordY, coordZ, heartBit)
 
+            const [ device_id, pulseMain, pulseLow, stepCntBefore, stepCntAfter,
+                activeTimeBefore, activeTimeAfter, aox, aoy, aoz, longitude, latitude ] = req.body.test.split(";")
             if (req.body.isEmpty) {
                 return next(ApiError.badReq("Тело запроса пустое!"));
             }
 
-            const currTimestamp = Date.now()
-            if (latitude == undefined || longitude == undefined || coordX == undefined || coordY == undefined || coordZ == undefined || heartBit == undefined) {
-                return res.status(400).json({message: "Not valid data"})
-            }
+            const pulse = `${pulseMain}.${pulseLow}`
+            const steps = parseInt(stepCntBefore) * 100 + parseInt(stepCntAfter)
+            const activeTime = parseInt(activeTimeBefore) * 100 + parseInt(activeTimeAfter)
 
-            monitoringQueries.addRecord(latitude, longitude, coordX, coordY, coordZ, heartBit, currTimestamp)
-            .then(response => {
-                return res.status(201).json({message: response});
-            })
-            .catch(resp => {
-                return res.status(400).json({message: resp});
-            })
+            monitoringQueries.addRecord(device_id, pulse, longitude, latitude, aox, aoy, aoz, steps, activeTime)
+                .then(response => {
+                    return res.status(201).json({message: response});
+                })
+                .catch(resp => {
+                    console.log(resp)
+                    return res.status(400).json({message: resp});
+                })
 
         } catch (e) {
             return res.status(400).json({message: e.message});
@@ -66,7 +66,8 @@ class MonitoringController {
     }
     async getDataForLast3S(req, res, next) {
         try {
-            await monitoringQueries.getLast3S()
+            const { id } = req.params;
+            await monitoringQueries.getLast3S(id)
                 .then(response => {
                     return res.status(200).send(response)
                 })
@@ -88,9 +89,29 @@ class MonitoringController {
     }
     async getLastPosition(req, res, next) {
         try {
-            await monitoringQueries.lastPosition()
+            const id = req.params.id;
+            await monitoringQueries.lastPosition(id)
                 .then(response => {
                     return res.status(200).send(response);
+                })
+        } catch (e) {
+            return res.status(400).json({message: e.message});
+        }
+    }
+
+    async allPositions(req, res, next) {
+        try {
+            const id = req.params.id;
+            await monitoringQueries.allPositionsBySession(id)
+                .then(response => {
+                    console.log(response)
+                    const result = response.map(item => {
+                        return {
+                            number: item.number,
+                            position: [ item.longitude, item.latitude ]
+                        }
+                    })
+                    return res.status(200).send(result);
                 })
         } catch (e) {
             return res.status(400).json({message: e.message});

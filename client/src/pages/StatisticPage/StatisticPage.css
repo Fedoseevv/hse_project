@@ -82,3 +82,21 @@
     align-items: center;
     margin: 30px auto 100px;
 }
+
+.common-stats-header {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 300;
+}
+.common-stats-wrap {
+    margin: 50px auto;
+    max-width: 1300px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    font-size: 24px;
+}
+.common-stats-subheader {
+    font-size: 30px;
+    font-weight: 700;
+}

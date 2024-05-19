@@ -37,8 +37,8 @@ export const OnlineGraph = ({ url, fieldName, id, header, deviceId }) => {
         let xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
             maxDeviation: 0.5,
             groupData: true,
-            extraMax: 0.1, // this adds some space in front
-            extraMin: -0.1,  // this removes some space form th beginning so that the line would not be cut off
+            extraMax: 0.1,
+            extraMin: -0.1,
             baseInterval: {
                 timeUnit: "second",
                 count: 1

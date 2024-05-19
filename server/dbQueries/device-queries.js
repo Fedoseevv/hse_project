@@ -42,7 +42,7 @@ const addDevice = (id, name) => {
 
 const updateDevice = (id, name) => {
     return new Promise((resolve, reject) => {
-        pool.query("UPDATE public.device SET name=$2 WHERE device_id=$1", [id, name],
+        pool.query("UPDATE public.device SET alias=$2 WHERE device_id=$1", [id, name],
             (error, result) => {
                 if (error) {
                     reject(error);

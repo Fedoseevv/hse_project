@@ -13,6 +13,8 @@ export const TotalStat = () => {
     const history = useHistory();
     const [ session, setSession ] = useState({});
     const [ devices, setDevices ] = useState([]);
+    const [ startTime, setStartTime ] = useState("");
+    const [ endTime, setEndTime ] = useState("");
 
     const [ slider, setSlider ] = useState({
         value: {
@@ -21,22 +23,30 @@ export const TotalStat = () => {
         }
     })
 
-    const featureRef = createRef()
-
     const [ value, setValue ] = useState([]);
 
     const getData = useCallback(async () => {
         const fetched = await request(`/api/sessions/sessionWithDevices/${id}`, 'GET');
         setSession(fetched[0]);
+        setStartTime((new Date(fetched[0].start).toLocaleTimeString()).slice(0, -3));
+        setEndTime((new Date(fetched[0].end).toLocaleTimeString()).slice(0, -3));
+
+        console.log(fetched);
         const devicesId = fetched.map(item => item.device_id)
-        setDevices(devicesId)
-
-        console.log(devicesId)
-
+        setDevices(devicesId);
+        console.log(`start: ${(new Date(fetched[0].start).toLocaleTimeString()).slice(0, -3)}`);
+        console.log(`end: ${(new Date(fetched[0].end).toLocaleTimeString()).slice(0, -3)}`)
+        setSlider(prev => ({
+            ...prev,
+            value: {
+                start: startTime,
+                end: endTime
+            }
+        }))
     }, []);
 
     useEffect(async () => {
-        await getData()
+        await getData();
     }, [getData])
 
     const getDateString = (str) => {
@@ -50,10 +60,9 @@ export const TotalStat = () => {
     }
 
     const timeChangeHandler = (time) => {
-        // this.setState({
-        //     value: time
-        // });
         setSlider({value: time})
+        setStartTime(time.start);
+        setEndTime(time.end)
     }
 
     const changeCompleteHandler = (time) => {
@@ -72,8 +81,8 @@ export const TotalStat = () => {
 
             <div className={"test"}>
                 <div className="time-range-text">
-                    <div className="time-range-text-item">Время начала: {slider.value.start}</div>
-                    <div className="time-range-text-item">Время конца: {slider.value.end}</div>
+                    <div className="time-range-text-item">Время начала: {startTime}</div>
+                    <div className="time-range-text-item">Время конца: {endTime}</div>
                 </div>
                 <TimeRangeSlider
                     disabled={false}
@@ -85,7 +94,7 @@ export const TotalStat = () => {
                     onChangeComplete={changeCompleteHandler}
                     onChange={timeChangeHandler}
                     step={1}
-                    value={slider.value}
+                    value={{start: startTime || "00:00", end: endTime || "23:59"}}
                 />
             </div>
             {

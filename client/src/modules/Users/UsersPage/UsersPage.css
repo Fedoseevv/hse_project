@@ -9,7 +9,7 @@
 .users-content {
     display: grid;
     grid-template-columns: repeat(4, 25%);
-    grid-template-rows: repeat(auto-fill, 325px);
+    grid-template-rows: repeat(auto-fill, 355px);
     grid-row-gap: 50px;
     margin-bottom: 100px;
 }
@@ -69,6 +69,13 @@
 }
 .user-modal-content {
     color: #ffffff;
+}
+.user-modal-id {
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-top: -20px;
+    font-size: 24px;
+    font-weight: 300;
 }
 .user-modal-header {
     margin-bottom: 25px;

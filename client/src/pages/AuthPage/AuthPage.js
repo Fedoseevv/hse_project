@@ -38,7 +38,7 @@ export const AuthPage = () => {
         } catch (e) {
             console.log("ERROR");
             setMsgVisible(true);
-        } // Пустой, т.к мы его уже обработали в хуке
+        }
     }
 
     return (

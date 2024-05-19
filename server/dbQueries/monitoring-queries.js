@@ -1,10 +1,11 @@
 const pool = require('../db-connector');
 const {request} = require('express');
 
-const addRecord = (latitude, longitude, coordX, coordY, coordZ, heartBit, currTimestamp) => {
+const addRecord = (device_id, pulse, longitude, latitude, aox, aoy, aoz, steps, activeTime) => {
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO  public.monitoring (id, session_id, device_id, pulse, longitude, latitude, aox, aoy, aoz, current_ts) " + 
-                    "VALUES (DEFAULT, NULL, NULL, $6, $2, $1, $3, $4, $5, DEFAULT)", [latitude, longitude, coordX, coordY, coordZ, heartBit],
+        pool.query("INSERT INTO  public.monitoring (id, device_id, pulse, longitude, latitude, aox, aoy, aoz, current_ts, steps, active_time) " +
+                    "VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, DEFAULT, $8, $9)",
+            [device_id, pulse, longitude, latitude, aox, aoy, aoz, steps, activeTime],
             (error, results) => {
                 if (error) {
                     reject(error);
@@ -55,12 +56,12 @@ const getMaxId = () => {
     })
 }
 
-const getLast3S = () => {
+const getLast3S = (id) => {
     return new Promise((resolve, reject) => {
         pool.query("SELECT *, (now()::timestamp - current_ts) as diff \n" +
             "FROM public.monitoring \n" +
-            "WHERE (now()::timestamp - current_ts) < '00:00:03.000000'" +
-            "ORDER BY id ASC", [],
+            "WHERE (now()::timestamp - current_ts) <= '00:00:03.000000' AND device_id=$1" +
+            "ORDER BY current_ts ASC", [id],
             (error, result) => {
                 if (error) {
                     reject(error)
@@ -90,16 +91,49 @@ const dataByPeriod = (start, end) => {
     })
 }
 
-const lastPosition = () => {
+const lastPosition = (deviceId) => {
     return new Promise((resolve, reject) => {
-        pool.query("select * from public.monitoring\n" +
-            "order by id desc\n" +
-            "limit 1", [],
+        pool.query("select * from public.monitoring \n" +
+            "join binding_devices using(device_id)\n" +
+            "join person using (user_id)\n" +
+            "where device_id=$1" +
+            "order by monitoring.id desc\n" +
+            "limit 1", [deviceId],
             (error, result) => {
                 if (error) {
                     reject(error);
                 } else {
                     resolve(result.rows[0]);
+                }
+            })
+    })
+}
+
+const allPositionsBySession = (sessionId) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT\n" +
+            "number,\n" +
+            "device_id,\n" +
+            "longitude,\n" +
+            "latitude\n" +
+            "FROM (\n" +
+            "select \n" +
+            "number, \n" +
+            "binding_devices.device_id, \n" +
+            "longitude, \n" +
+            "latitude,\n" +
+            "ROW_NUMBER() OVER (PARTITION BY binding_devices.device_id ORDER BY current_ts desc) rnk\n" +
+            "from public.monitoring\n" +
+            "join binding_devices using(device_id)\n" +
+            "join person using (user_id)\n" +
+            "where binding_devices.session_id=$1\n" +
+            ") as subq\n" +
+            "WHERE rnk=1", [sessionId],
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result.rows);
                 }
             })
     })
@@ -112,5 +146,6 @@ module.exports = {
     getMaxId,
     getLast3S,
     dataByPeriod,
-    lastPosition
+    lastPosition,
+    allPositionsBySession
 }

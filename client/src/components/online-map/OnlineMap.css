@@ -1,0 +1,9 @@
+.players-map {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+.players-map-header {
+    font-size: 35px;
+    margin-bottom: 40px;
+}

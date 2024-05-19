@@ -1,6 +1,12 @@
 .online-monitoring {
 
 }
+.online-monitoring-header {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 500;
+    margin-bottom: 50px;
+}
 .online-monitoring-wrap {
     display: grid;
     grid-template-columns: repeat(2, 50%);

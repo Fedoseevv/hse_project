@@ -10,7 +10,7 @@ const sessionRouter = require('./session-routes');
 router.use('/monitoring', monitoringRouter);
 router.use('/user', userRouter);
 router.use('/players', playersRouter);
-router.use('/device', deviceRouter);
-router.use('/session', sessionRouter);
+router.use('/devices', deviceRouter);
+router.use('/sessions', sessionRouter);
 
 module.exports = router;

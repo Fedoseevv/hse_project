@@ -1,7 +1,7 @@
 .session-content {
     display: grid;
     grid-template-columns: repeat(3, 33%);
-    grid-template-rows: repeat(auto-fill, 555px);
+    grid-template-rows: repeat(auto-fill, 640px);
     grid-row-gap: 50px;
     margin-bottom: 100px;
     text-align: center;
@@ -48,4 +48,7 @@
 .session-btn:disabled:hover {
     color: #444444!important;
     cursor: not-allowed;
+}
+.map-wrap {
+    margin: 50px 0 100px;
 }

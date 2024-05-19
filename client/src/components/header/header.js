@@ -9,10 +9,10 @@ export const Header = (props) => {
 
     const history = useHistory();
 
-    const logoutHandler = (event) => { // Функция выхода из ИС
-        event.preventDefault(); // Отменяем стандартное поведение браузера
-        auth.logout(); // Выходим
-        history.push('/'); // Перекидываем на стр со входом
+    const logoutHandler = (event) => {
+        event.preventDefault();
+        auth.logout();
+        history.push('/');
     }
 
     let elem = "";

@@ -4,6 +4,7 @@ import {useHttp} from "../../../hooks/httpHook";
 import {useCallback, useEffect, useState} from "react";
 import {Loader} from "../../../components/loader/Loader";
 import {CurrentSessionItem} from "../CurrentSessionItem/CurrentSessionItem";
+import {OnlineMap} from "../../../components/online-map/OnlineMap";
 
 export const CurrentSession = () => {
     const { id } = useParams()
@@ -41,6 +42,10 @@ export const CurrentSession = () => {
                                 }
                             </div>
 
+    const map = <div className="map-wrap">
+                            <OnlineMap sessionId={id}/>
+                         </div>
+
     const msg = <div className="session-msg">Сессия завершена.</div>
 
     return (
@@ -48,6 +53,9 @@ export const CurrentSession = () => {
             <div className="users-header">Название сессии: '{session.session_name}'</div>
             {
                 session.end === null ? users : msg
+            }
+            {
+                session.end === null ? map : ""
             }
             <div className={"session-btns"}>
                 <button
